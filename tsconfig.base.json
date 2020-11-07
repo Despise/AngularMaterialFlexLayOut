@@ -3,6 +3,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@entities/*": ["src/app/models/entities/*"],
+      "@interfaces/*": ["src/app/models/interfaces/*"],
+      "@services/*": ["src/app/services/*"],
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@env/*": ["src/environments/*"],
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
