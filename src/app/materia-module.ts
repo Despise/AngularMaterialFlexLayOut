@@ -28,6 +28,9 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 const materialModules = [
   FlexLayoutModule,
@@ -58,10 +61,14 @@ const materialModules = [
   MatTableModule,
   MatTreeModule,
   MatIconModule,
+  MatSelectModule,
+  MatMenuModule,
+  MatButtonToggleModule
 ];
 
 @NgModule({
   declarations: [],
   exports: [...materialModules],
+  imports: [...materialModules]
 })
 export class MaterialModule {}

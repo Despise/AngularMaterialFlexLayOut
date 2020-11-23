@@ -1,0 +1,229 @@
+<br/>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div id="tituloInformes" fxFlex="grow">Cobranzas</div>
+</div>
+
+<div fxLayoutAlign="row">
+  <div fxFlex="50">
+    <mat-form-field appearance="outline">
+      <mat-label>BÚSQUEDA GLOBAL...</mat-label>
+      <input type="text" matInput [(ngModel)]="busquedaValor" (keyup)="filtroBusqueda($event.target.value, 'general')" placeholder="EJ: 15543678-k" autocomplete="off">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+  </div>
+  <div fxFlex="40" fxLayoutAlign="space-evenly center">
+    <mat-form-field appearance="outline">
+      <mat-label>PRODUCTOS</mat-label>
+      <mat-select [(value)]="selectedProd" (selectionChange)="filtroBusqueda($event.value,'producto')" #selectProductos>
+        <mat-option value="TODOS">--TODOS LOS PRODUCTOS--</mat-option>
+        <mat-option *ngFor="let producto of productos" [value]="producto">{{ producto }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>PÓLIZAS CRÍTICAS</mat-label>
+        <mat-select [(value)]="selectedCriticas" (selectionChange)="filtroBusqueda($event.value, 'indicador-poliza')" #selectCriticas>
+          <mat-option value="TODAS">--TODAS LAS PÓLIZAS--</mat-option>
+          <mat-option value="SI">SOLO CRÍTICAS</mat-option>
+          <mat-option value="NO">NO CRÍTICAS</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div fxFlex>
+    <button 
+      mat-raised-button color="primary" 
+      style="width: 170px;height: 45px;top: 5px;"
+      (click)="limpiarFiltros()">
+        <mat-icon style="position: absolute;padding-top: 5px;display: flex;">replay</mat-icon>
+        <div style="position: relative; display: flex;left: 30px;top: 1px;"> LIMPIAR FILTROS</div>
+    </button>
+  </div>
+</div>
+
+  <div class="container">
+
+    <div class="mat-elevation-z8">
+      <div class="loading-shade" *ngIf="isLoadingResults">
+        <!-- <mat-progress-bar mode="query"></mat-progress-bar> -->
+        <mat-spinner></mat-spinner>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="nombresCliente">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> NOMBRE CLIENTE </th>
+            <td mat-cell *matCellDef="let e"> {{e.nombresCli}} </td>
+            <!-- <td mat-cell *matCellDef="let e"> {{e.nombresCliente}} </td> -->
+          </ng-container>
+
+          <ng-container matColumnDef="rutCliente">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> RUT CLIENTE </th>
+            <td mat-cell *matCellDef="let e"> {{e.rutCliente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefonoPrincipalCliente">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> TELÉFONO </th>
+            <td mat-cell *matCellDef="let e"> {{e.telefonoPrincipalCli}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="emailPrincipalCliente">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> E-MAIL </th>
+            <td mat-cell *matCellDef="let e"> {{e.emailPrincipalCli}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccionP">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> DIRECCIÓN </th>
+            <td mat-cell *matCellDef="let e"> {{e.direccionP }} </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="descPlan">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> 
+              <div class="header">
+              PRODUCTO
+              <button mat-icon-button class="btn-toggle" [matMenuTriggerFor]="menu">
+                <mat-icon>filter_alt</mat-icon>
+              </button>
+            </div>
+            <mat-menu #menu>
+              <div mat-menu-item appFilterMatItem [disableRipple]="true" class="menu-title">
+                PRODUCTO
+              </div>
+              <div mat-menu-item appFilterMatItem [disableRipple]="true">
+                <mat-form-field>
+                  <mat-select [panelClass]="'mat-elevation-z10'" placeholder='Condición busqueda' [(value)]="searchCondition.descPlan">
+                    <mat-option *ngFor="let condition of conditionsList" [value]="condition.value">{{condition.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+    
+              <div mat-menu-item appFilterMatItem [disableRipple]="true">
+                <mat-form-field>
+                  <input matInput placeholder="Busqueda" [(ngModel)]="searchValue.descPlan" autocomplete="off">
+                </mat-form-field>
+              </div>
+    
+              <div mat-menu-item appFilterMatItem [disableRipple]="true">
+                <button mat-raised-button (click)="limpiarColumn('descPlan')">Limpiar</button>
+                <button mat-raised-button color="primary" (click)="filtroColumna()">Buscar</button>
+    
+              </div>
+            </mat-menu>  
+            </th>
+            <td mat-cell *matCellDef="let e"> {{e.descPlan}} </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="poliza">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> N° PÓLIZA </th>
+            <td mat-cell *matCellDef="let e"> {{ e.poliza }} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="IndicadorPolizaCritica">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> PÓLIZA CRÍTICA </th>
+            <td mat-cell *matCellDef="let e"> {{e.IndicadorPolizaCritica}} </td>
+          </ng-container> -->
+          <ng-container matColumnDef="mesesImpago">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> MESES IMPAGOS </th>
+            <td mat-cell *matCellDef="let e"> {{e.mesesImpago}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="descPeriodicidad">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> PERIODICIDAD DE PAGO </th>
+            <td mat-cell *matCellDef="let e"> {{e.descPeriodicidad}} </td>
+          </ng-container>
+          <ng-container matColumnDef="mtoPrima">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> PRIMAS SFP </th>
+            <td mat-cell *matCellDef="let e"> {{'UF '+ e.mtoPrima}} </td>
+          </ng-container>
+          <ng-container matColumnDef="idNumeroCuenta">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CUENTA CORRIENTE </th>
+            <td mat-cell *matCellDef="let e"> {{e.idNumeroCuenta}} </td>
+          </ng-container>
+          <ng-container matColumnDef="SaldoMO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> VALOR PÓLIZA </th>
+            <td mat-cell *matCellDef="let e"> {{'UF '+ e.SaldoMO}} </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class='ch-dt'> DETALLE PRODUCTO </th>
+            <td mat-cell *matCellDef="let e">
+              <!-- <button mat-icon-button color="primary" (click)="detallePoliza(e.emailPrincipalCli, e.mtoPrima, e.idNumeroCuenta, e.SaldoMO)">
+                <mat-icon>launch</mat-icon>
+              </button> -->
+
+
+              <button mat-icon-button color="primary" class="btn-toggle" [matMenuTriggerFor]="menudetalle">
+                <mat-icon>launch</mat-icon>
+              </button>
+              <mat-menu yPosition="above" #menudetalle>
+
+                <div class="card">
+                  <div class="card-body">
+                    <table class="table-detalle" style="font-size: .7em;">
+                      <tbody>
+                        <tr>
+                          <td colspan="2" style="background:#4066b3;color:#fff;">
+                            DETALLE PÓLIZA
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>PRODUCTO</td>
+                          <td>{{e.descPlan}}</td>
+                        </tr>
+                        <tr>
+                          <td>PERIODICIDAD DE PAGO</td>
+                          <td>{{e.descPeriodicidad}}</td>
+                        </tr>
+                        <tr>
+                          <td>PRIMA SFP</td>
+                          <td>{{'UF '+ e.mtoPrima}}</td>
+                        </tr>
+                        <tr>
+                          <td>CUENTA CORRIENTE</td>
+                          <td>{{e.idNumeroCuenta}}</td>
+                        </tr>
+                        <tr>
+                          <td>VALOR PÓLIZA</td>
+                          <td>{{'UF '+ e.SaldoMO}} </td>
+                        </tr>
+                        <tr>
+                          <td>PÓLIZA CRÍTICA</td>
+                          <td>{{ e.IndicadorPolizaCritica }} </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </mat-menu>
+            </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                <div id='msgInfo' fxLayoutAlign="center" *ngIf="!isLoadingResults">
+                  No se encontraron datos !
+                </div>
+
+                <div [ngClass]="{'col-load-table': true}" *ngIf="isLoadingResults"></div>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- <tr class="mat-row" >
+            <td class="mat-cell" colspan="9">
+              <div [ngClass]="{'col-load-table': true}" *ngIf="isLoadingResults">
+                CARGANDO...
+              </div>
+            </td>
+          </tr> -->
+
+        </table>
+        <mat-paginator [hidden]="!dataSource.data.length" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+</div>

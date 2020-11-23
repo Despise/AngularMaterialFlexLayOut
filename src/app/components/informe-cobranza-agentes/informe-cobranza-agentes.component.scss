@@ -1,0 +1,274 @@
+$header-background: #4066b3;
+$header-color: #ffffff;
+
+
+.container {
+  position: relative;
+  min-height: 600px;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.035);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-container {
+  position: relative;
+  max-height: auto;
+  overflow: auto;
+}
+
+.mat-row {
+  background: #ffffff;
+  transition: background-color .5s;
+}
+
+.mat-row:hover {
+  background: #EBECF0;
+  // background: #f6f8fa;
+  transition: background-color .5s;
+}
+
+
+table {
+  width: 100%;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 14px;
+}
+#tituloInformes {
+  font-size: 1.1em;
+  margin-bottom: 20px;;
+  font-weight: bolder;
+  border-bottom: 1.5px solid #000066;
+  color: #003399;
+}
+
+
+
+
+
+button[mat-button].btn-toggle {
+  position: absolute !important;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 0rem !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  height: 1.5rem;
+  padding: 0 !important;
+  line-height: 1rem !important;
+  box-sizing: border-box;
+  width: 1.65rem;
+}
+
+.mat-menu-item-highlighted:not([disabled]),
+.mat-menu-item.cdk-keyboard-focused:not([disabled]),
+.mat-menu-item.cdk-program-focused:not([disabled]),
+.mat-menu-item:hover:not([disabled]) {
+  background: #fff;
+}
+
+
+.menu-title { 
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+
+
+
+
+
+
+
+
+/*
+ tHEADER
+*/
+.ch-dt {
+  background: $header-background;
+  color: $header-color;
+  font-weight: bold;
+  text-align: center !important;
+  // padding: 0 1.5rem;
+  // min-height: 5rem;
+}
+
+// :host::ng-deep.mat-sort-header-arrow {
+//   color: #ffffff !important;
+// }
+
+tr.mat-row {
+  height: 50px;
+}
+
+
+td.mat-cell {
+  font-size: .75em;
+  padding: 0;
+  border-bottom: 1px solid #C3C3C3;
+  // background: #fff;
+  // color: #000000 !important;
+}
+
+.mat-column-nombresCliente {
+  width: 15rem;
+  text-align: left;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.mat-column-rutCliente {
+  width: 5rem;
+  text-align: right;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.mat-column-telefonoPrincipalCliente {
+  width: 5rem;
+  text-align: right;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.mat-column-emailPrincipalCliente {
+  width: 14rem;
+  text-align: left;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.mat-column-direccionP {
+  width: 15rem;
+  text-align: left;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+// .mat-column-descPlan {
+//   width: 10rem;
+//   text-align: left;
+//   padding-left: 5px !important;
+//   padding-right: 5px !important;
+// }
+
+.mat-column-poliza {
+  width: 5rem;
+  text-align: right;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+// .mat-column-IndicadorPolizaCritica {
+//   width: 3rem;
+//   text-align: center;
+//   padding-left: 5px !important;
+//   padding-right: 5px !important;
+// }
+
+.mat-column-mesesImpago {
+  width: 4rem;
+  text-align: center;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+// .mat-column-descPeriodicidad {
+//   width: 5rem;
+//   text-align: center;
+//   padding-left: 5px !important;
+//   padding-right: 5px !important;
+// }
+
+.mat-column-acciones {
+  width: 4rem;
+  text-align: center;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+
+
+
+// .mat-column-mtoPrima {
+//   text-align: right;
+//   padding-left: 2px;
+//   padding-right: 2px;
+// }
+
+// .mat-column-idNumeroCuenta {
+//   text-align: right;
+//   padding-left: 2px;
+//   padding-right: 2px;
+// }
+
+// .mat-column-SaldoMO {
+//   text-align: right;
+//   padding-left: 2px;
+//   padding-right: 2px;
+// }
+
+.col-load-table {
+  display: block;
+  height: 485px;
+  width: auto;
+}
+
+#msgInfo {
+  width: 500px;
+  text-align: center;
+  font-size: 1.3em;
+  background: #F2F0EE;
+  padding: 30px 10px 30px 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#iconInfo {
+  font-size: 1.8em;
+  color: #4066b3;
+}
+
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* menu detalle */
+// :host::mat-menu-content:not(:empty) {
+//   padding-top: 0px !important;
+// }
+
+.table-detalle {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.table-detalle tbody tr td:nth-child(1) {
+  background: #ECF0EF;
+  height: 20px;
+  width: 125px;
+  padding:5px;
+}
+.table-detalle tbody tr td:nth-child(2) {
+  background: #fff;
+  height: 20px;
+  width: 100px;
+  padding:5px;
+}
+
+.mat-menu-content:not(:empty) {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}

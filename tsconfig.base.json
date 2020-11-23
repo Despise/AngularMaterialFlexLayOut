@@ -5,10 +5,12 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
+      "@components/*": ["src/app/components/*"],
       "@entities/*": ["src/app/models/entities/*"],
       "@interfaces/*": ["src/app/models/interfaces/*"],
       "@services/*": ["src/app/services/*"],
       "@interceptors/*": ["src/app/interceptors/*"],
+      "@fonts/*": ["src/assets/fonts/*"],
       "@env/*": ["src/environments/*"],
     },
     "outDir": "./dist/out-tsc",
